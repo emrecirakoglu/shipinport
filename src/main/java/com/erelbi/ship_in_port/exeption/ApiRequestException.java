@@ -1,0 +1,17 @@
+package com.erelbi.ship_in_port.exeption;
+
+public class ApiRequestException extends RuntimeException {
+    
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public ApiRequestException(String message) {
+        super(message);
+    }
+
+    public ApiRequestException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}

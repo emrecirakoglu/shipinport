@@ -64,7 +64,7 @@ public class User {
     // @ManyToMany(targetEntity = Port.class, cascade = CascadeType.ALL) 
     // private List<Port> visitedPorts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "user_port",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "port_id", referencedColumnName = "id"))

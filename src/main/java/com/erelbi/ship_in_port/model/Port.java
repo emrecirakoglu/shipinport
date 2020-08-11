@@ -59,7 +59,7 @@ public class Port {
     // @ManyToMany(targetEntity = User.class, mappedBy = "visitedPorts", cascade = CascadeType.ALL)
     // private List<User> visitedUsers;
     
-    @ManyToMany(mappedBy = "visitedPorts", cascade = CascadeType.DETACH)
+    @ManyToMany(mappedBy = "visitedPorts")
     private List<User> visitedUsers;
 
 }

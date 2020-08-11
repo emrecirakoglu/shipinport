@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 
 import com.erelbi.ship_in_port.Repository.PortRepository;
 import com.erelbi.ship_in_port.model.Port;
+import com.erelbi.ship_in_port.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +32,14 @@ public class PortDal {
     }
 
     public void deletePortById(Long id) {
+
+        Port port = this.getPortById(id);
+        List<User> visitedUsers = port.getVisitedUsers();
+
+        for (User user : visitedUsers) {
+            user.getVisitedPorts().remove(port);
+        }
+
         this.portRepository.deleteById(id);   
     }
     

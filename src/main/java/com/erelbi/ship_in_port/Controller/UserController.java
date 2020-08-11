@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,12 @@ public class UserController {
     @PostMapping(path = "/")
     public ResponseEntity<Void> saveUser(@RequestBody User user) {
         userDal.saveUser(user);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/")
+    public ResponseEntity<Void> updateUser(@RequestBody User user) {
+        userDal.updateUser(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

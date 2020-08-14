@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import com.erelbi.ship_in_port.Repository.PortRepository;
 import com.erelbi.ship_in_port.Repository.UserRepository;
@@ -33,6 +34,12 @@ public class UserDal {
     }
 
     public void saveUser(User user){
+
+        // Check user register before. Not allow user to create with same email address. 
+        String userMail = user.getEmail();
+        if (userRepository.existsByEmail(userMail)) {
+            throw new EntityExistsException("User already created before!");
+        }
 
         if (user.getId() != null){
             this.updateUser(user);

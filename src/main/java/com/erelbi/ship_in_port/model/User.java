@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -53,16 +55,15 @@ public class User {
     private String lastName;
 
     @Column
+    @Min(value = 6, message = "Password should hava min 6 character!")
     private String password;
-
+    
     @Column
+    @Email(message = "Email should be valid!")
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
-
-    // @ManyToMany(targetEntity = Port.class, cascade = CascadeType.ALL) 
-    // private List<Port> visitedPorts;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "user_port",

@@ -2,6 +2,8 @@ package com.erelbi.ship_in_port.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.erelbi.ship_in_port.DAL.UserDal;
 import com.erelbi.ship_in_port.model.User;
 
@@ -44,13 +46,13 @@ public class UserController {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<Void> saveUser(@RequestBody User user) {
+    public ResponseEntity<Void> saveUser(@Valid @RequestBody User user) {
         userDal.saveUser(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @PutMapping(path = "/")
-    public ResponseEntity<Void> updateUser(@RequestBody User user) {
+    public ResponseEntity<Void> updateUser(@Valid @RequestBody User user) {
         userDal.updateUser(user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

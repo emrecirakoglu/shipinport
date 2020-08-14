@@ -3,7 +3,7 @@ package com.erelbi.ship_in_port.DAL;
 import java.util.List;
 import java.util.Optional;
 
-import com.erelbi.ship_in_port.exeption.EntityNotFoundExeption;
+import javax.persistence.EntityNotFoundException;
 
 import com.erelbi.ship_in_port.Repository.CommentRepository;
 import com.erelbi.ship_in_port.Repository.UserRepository;
@@ -24,7 +24,7 @@ public class CommentDal {
 
     public Comment getCommentById(Long id) {
         Optional<Comment> commentOptional = this.commentRepository.findById(id);
-        return commentOptional.orElseThrow(() -> new EntityNotFoundExeption("Comment Not Found"));
+        return commentOptional.orElseThrow(() -> new EntityNotFoundException("Comment Not Found"));
     }
 
     public List<Comment> getAllComments() {
@@ -35,14 +35,14 @@ public class CommentDal {
 
         Optional<User> userOptional = this.userRepository.findById(userId);
         if(userOptional.isEmpty()){
-            throw new EntityNotFoundExeption("User Not Found");
+            throw new EntityNotFoundException("User Not Found");
         } else {
             return this.commentRepository.getCommentsByUserId(userId);
         }        
     }
 
     public void deleteCommentById(Long id){
-        this.commentRepository.findById(id).orElseThrow(() -> new EntityNotFoundExeption("Command Not Found"));
+        this.commentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Command Not Found"));
     }
 
     public void saveComment(Comment comment){

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.erelbi.ship_in_port.exeption.EntityNotFoundExeption;
+import javax.persistence.EntityNotFoundException;
 import com.erelbi.ship_in_port.Repository.PortRepository;
 import com.erelbi.ship_in_port.Repository.UserRepository;
 import com.erelbi.ship_in_port.model.Port;
@@ -29,7 +29,7 @@ public class UserDal {
 
     public User getUserByID(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElseThrow(() -> new EntityNotFoundExeption("User not found"));
+        return userOptional.orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 
     public void saveUser(User user){
@@ -48,7 +48,7 @@ public class UserDal {
         if (userOptional.isPresent()){
             userRepository.deleteById(userId);
         } else {
-            throw new EntityNotFoundExeption("User not found");
+            throw new EntityNotFoundException("User not found");
         }
     }
 

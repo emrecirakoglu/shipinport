@@ -2,10 +2,12 @@ package com.erelbi.ship_in_port.DAL;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
 import com.erelbi.ship_in_port.Repository.PortRepository;
+import com.erelbi.ship_in_port.Repository.UserRepository;
 import com.erelbi.ship_in_port.model.Port;
 import com.erelbi.ship_in_port.model.User;
 
@@ -17,6 +19,9 @@ public class PortDal {
 
     @Autowired
     private PortRepository portRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public List<Port> getAllPorts() {
         return this.portRepository.findAll();
@@ -34,7 +39,7 @@ public class PortDal {
     public void deletePortById(Long id) {
 
         Port port = this.getPortById(id);
-        List<User> visitedUsers = port.getVisitedUsers();
+        List<User> visitedUsers = port.getVisitedUsers().stream().map(item -> this.userRepository.getOne(item)).collect(Collectors.toList());
 
         for (User user : visitedUsers) {
             user.getVisitedPorts().remove(port);

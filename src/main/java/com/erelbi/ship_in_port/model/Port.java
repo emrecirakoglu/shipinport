@@ -1,6 +1,7 @@
 package com.erelbi.ship_in_port.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,11 +56,13 @@ public class Port {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "port", fetch = FetchType.LAZY)
     private List<Comment> relatedComments;
-
-    // @ManyToMany(targetEntity = User.class, mappedBy = "visitedPorts", cascade = CascadeType.ALL)
-    // private List<User> visitedUsers;
     
     @ManyToMany(mappedBy = "visitedPorts")
     private List<User> visitedUsers;
+
+    public List<Long> getVisitedUsers(){
+        List<Long> userList = this.visitedUsers.stream().map(item -> item.getId()).collect(Collectors.toList());
+        return userList;
+    }
 
 }
